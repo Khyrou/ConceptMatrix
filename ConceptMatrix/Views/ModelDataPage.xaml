@@ -1,0 +1,251 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.ModelDataPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions" 
+             xmlns:Control="clr-namespace:ConceptMatrix.Controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:ConceptMatrix.Backend.Converters" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="1822" d:DesignWidth="444">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <core:Double x:Key="ColumnWidth1">134</core:Double>
+            <core:Double x:Key="ColumnWidth2">200</core:Double>
+            <Style x:Key="MenuLevel2" BasedOn="{StaticResource MetroTabItem}" TargetType="{x:Type TabItem}">
+                <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="14"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ComboBox Foreground="#737779" Width="200" FontSize="15" FontWeight="Bold" ItemsSource="{Binding Names}" SelectedIndex="{Binding SelectedIndex}"/>
+                <Button Width="75" FontSize="20" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=RefreshEntitiesCommand}" Content="&#xF021;" FontFamily="/Resources/#FontAwesome"/>
+                <Button Width="125" FontSize="14" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=ActorRefreshCommand}" Content="Actor Refresh"/>
+            </StackPanel>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <ScrollViewer DockPanel.Dock="Bottom" Margin="0,0,-13,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Data Path:" IsChecked="{Binding AddressList[DataPath].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <ComboBox Width="150" SelectedValuePath="Tag" SelectedValue="{Binding AddressList[DataPath].UserValue, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Visibility="Collapsed" Content="None" Tag="0"/>
+                            <ComboBoxItem Content="101" Tag="101" Background="{x:Null}"/>
+                            <ComboBoxItem Content="104" Tag="104" Background="{x:Null}"/>
+                            <ComboBoxItem Content="201" Tag="201" Background="{x:Null}"/>
+                            <ComboBoxItem Content="301" Tag="301" Background="{x:Null}"/>
+                            <ComboBoxItem Content="401" Tag="401" Background="{x:Null}"/>
+                            <ComboBoxItem Content="501" Tag="501" Background="{x:Null}"/>
+                            <ComboBoxItem Content="504" Tag="504" Background="{x:Null}"/>
+                            <ComboBoxItem Content="601" Tag="601" Background="{x:Null}"/>
+                            <ComboBoxItem Content="604" Tag="604" Background="{x:Null}"/>
+                            <ComboBoxItem Content="701" Tag="701" Background="{x:Null}"/>
+                            <ComboBoxItem Content="801" Tag="801" Background="{x:Null}"/>
+                            <ComboBoxItem Content="804" Tag="804" Background="{x:Null}"/>
+                            <ComboBoxItem Content="901" Tag="901" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1001" Tag="1001" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1101" Tag="1101" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1201" Tag="1201" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1301" Tag="1301" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1401" Tag="1401" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1501" Tag="1501" Background="{x:Null}"/>
+                            <ComboBoxItem Content="1801" Tag="1801" Background="{x:Null}"/>
+                            <ComboBoxItem Content="9104" Tag="9104" Background="{x:Null}"/>
+                            <ComboBoxItem Content="9204" Tag="9204" Background="{x:Null}"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Idle Animation:" IsChecked="{Binding AddressList[IdleAnimation].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Maximum="7756" Width="150" Value="{Binding AddressList[IdleAnimation].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left" Minimum="1" NumericInputMode="Numbers" BorderThickness="2" Interval="1" HasDecimals="False" />
+                        <Button Name="IdleButton" Content="View" Margin="10,0,0,0" Click="IdleButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Force Animation:" IsChecked="{Binding AddressList[ForceAnimation].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Maximum="7756"  Width="150" Value="{Binding AddressList[ForceAnimation].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left" Minimum="1" NumericInputMode="Numbers" BorderThickness="2" Interval="1" HasDecimals="False" />
+                        <Button Name="ForceButton" Content="View" Margin="10,0,0,0" Click="ForceButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Animation Speed:" IsChecked="{Binding AddressList[AnimationSpeed].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[AnimationSpeed].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left" BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Freeze Facial Expression:" Foreground="#737779" Width="auto" VerticalAlignment="Center"/>
+                        <Label Content="False" Foreground="#737779"/>
+                        <ToggleButton IsChecked="{Binding AddressList[AnimationSpeed].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="True" Foreground="#737779"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Transparency:" IsChecked="{Binding AddressList[Transparency].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Transparency].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                        <Slider Width="150" Value="{Binding AddressList[Transparency].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="1" IsSnapToTickEnabled="False" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Model Height:" IsChecked="{Binding AddressList[Height].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Height].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"  />
+                        <Slider Width="150" Value="{Binding AddressList[Height].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="10" Minimum="0.01" IsSnapToTickEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Bust Scale:" IsChecked="{Binding AddressList[BustScale].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[BustScale].ScaleFactorX, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left" Interval="1"  BorderThickness="2" Minimum="0" HasDecimals="False" Maximum="2147483646" NumericInputMode="Numbers" />
+                        <Slider Width="150" Value="{Binding AddressList[BustScale].ScaleFactorX, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="1000" IsSnapToTickEnabled="True" SmallChange="1" Interval="1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Bust Scale - X:" IsChecked="{Binding AddressList[BustX].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[BustX].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" Minimum="0"/>
+                        <Slider Width="150" Value="{Binding AddressList[BustX].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="30" IsSnapToTickEnabled="False" LargeChange="0.1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Bust Scale - Y:" IsChecked="{Binding AddressList[BustY].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[BustY].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" Minimum="0"  />
+                        <Slider Width="150" Value="{Binding AddressList[BustY].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="30" IsSnapToTickEnabled="False" LargeChange="0.1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Bust Scale - Z:" IsChecked="{Binding AddressList[BustZ].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[BustZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" Minimum="0"  />
+                        <Slider Width="150" Value="{Binding AddressList[BustZ].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="30" IsSnapToTickEnabled="False" LargeChange="0.1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Unique Scale:" IsChecked="{Binding AddressList[UniqueFeatureScale].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[UniqueFeatureScale].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"  />
+                        <Slider Width="150" Value="{Binding AddressList[UniqueFeatureScale].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Minimum="0.01" IsSnapToTickEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Muscle Scale:" IsChecked="{Binding AddressList[MuscleTone].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[MuscleTone].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"/>
+                        <Slider Width="150" Value="{Binding AddressList[MuscleTone].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Minimum="-10" IsSnapToTickEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Player Coord - X:" IsChecked="{Binding AddressList[X].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="XCoord" Width="150" Value="{Binding AddressList[X].UserValue, UpdateSourceTrigger=PropertyChanged}"  Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Player Coord - Y:" IsChecked="{Binding AddressList[Y].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Y].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Player Coord - Z:" IsChecked="{Binding AddressList[Z].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Z].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Rotation - X:" IsChecked="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Rotation].RotationX, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}"  Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Minimum="0" Maximum="360" TextAlignment="Left"  BorderThickness="2" Interval="0.5" StringFormat="F5" />
+                        <Slider Value="{Binding AddressList[Rotation].RotationX, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="150" Maximum="360" Minimum="0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Rotation - Y:" IsChecked="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Rotation].RotationY, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Minimum="0" Maximum="360" TextAlignment="Left"  BorderThickness="2" Interval="0.5" StringFormat="F5" />
+                        <Slider Value="{Binding AddressList[Rotation].RotationY, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="150" Maximum="360" Minimum="0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Rotation - Z:" IsChecked="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[Rotation].RotationZ, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Minimum="0" Maximum="360" TextAlignment="Left"  BorderThickness="2" Interval="0.5" StringFormat="F5" />
+                        <Slider Value="{Binding AddressList[Rotation].RotationZ, UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding AddressList[Rotation].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="150" Maximum="360" Minimum="0"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Cam View - X:" IsChecked="{Binding AddressList[CameraViewX].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraViewX].UserValue, UpdateSourceTrigger=PropertyChanged}"  Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Cam View - Y:" IsChecked="{Binding AddressList[CameraViewY].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraViewY].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Cam View - Z:" IsChecked="{Binding AddressList[CameraViewZ].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraViewZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" IsEnabled="False" Name="StackViewX">
+                        <CheckBox Content="Gpose View - X:" IsChecked="{Binding AddressList[CameraX].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraX].UserValue, UpdateSourceTrigger=PropertyChanged}"  Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  IsEnabled="False"  Name="StackViewY">
+                        <CheckBox Content="Gpose View - Y:" IsChecked="{Binding AddressList[CameraY].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraY].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  IsEnabled="False"  Name="StackViewZ">
+                        <CheckBox Content="Gpose View - Z:" IsChecked="{Binding AddressList[CameraZ].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="{StaticResource ColumnWidth2}" Value="{Binding AddressList[CameraZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.01" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+        <mah:Flyout Name="EmoteFlyout" Position="Right" IsOpen="False" Width="422" Margin="0,45,-12,0" AnimateOpacity="True" Header="Emote Picker">
+            <Grid Margin="10">
+                <mah:MetroAnimatedTabControl mah:TabControlHelper.Underlined="TabPanel" Background="{x:Null}">
+                    <TabItem Header="Player" Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="PlayerList" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="PlayerList_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Index}" Width="56"/>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBox x:Name="SearchPlayerEmote" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="153,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" TextChanged="SearchPlayerEmote_TextChanged"/>
+                            <ComboBox Name="Combo1" SelectedIndex="{Binding Path=AnimIndex, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Select Type..." HorizontalAlignment="Left" Margin="2,7,0,0" VerticalAlignment="Top" Width="146">
+                                <ComboBoxItem Content="Idle"/>
+                                <ComboBoxItem Content="Force"/>
+                            </ComboBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Battle" Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="BattleList" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="BattleList_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Index}" Width="56"/>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ComboBox Name="Combo2" SelectedIndex="{Binding Path=AnimIndex, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Select Type..." HorizontalAlignment="Left" Margin="2,7,0,0" VerticalAlignment="Top" Width="146">
+                                <ComboBoxItem Content="Idle"/>
+                                <ComboBoxItem Content="Force"/>
+                            </ComboBox>
+                            <TextBox x:Name="SearchBatteEmote" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="153,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" TextChanged="SearchBatteEmote_TextChanged"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Monster"  Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="MonsterList" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="MonsterList_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Index}" Width="56"/>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ComboBox Name="Combo3" SelectedIndex="{Binding Path=AnimIndex, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Select Type..." HorizontalAlignment="Left" Margin="2,7,0,0" VerticalAlignment="Top" Width="146">
+                                <ComboBoxItem Content="Idle"/>
+                                <ComboBoxItem Content="Force"/>
+                            </ComboBox>
+                            <TextBox x:Name="SearchMonsterEmote" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="153,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" TextChanged="SearchMonsterEmote_TextChanged"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="All"  Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="AllList" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="AllList_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Index}" Width="56"/>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ComboBox Name="Combo4" SelectedIndex="{Binding Path=AnimIndex, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Select Type..." HorizontalAlignment="Left" Margin="2,7,0,0" VerticalAlignment="Top" Width="146">
+                                <ComboBoxItem Content="Idle"/>
+                                <ComboBoxItem Content="Force"/>
+                            </ComboBox>
+                            <TextBox x:Name="SearchAllEmote" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="153,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" TextChanged="SearchAllEmote_TextChanged"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Favorite"  Style="{DynamicResource MenuLevel2}">
+
+                    </TabItem>
+                </mah:MetroAnimatedTabControl>
+            </Grid>
+        </mah:Flyout>
+
+    </Grid>
+</UserControl>

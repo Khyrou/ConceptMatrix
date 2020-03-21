@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.DataPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="391.416" d:DesignWidth="444">
+    <Grid>
+        <Label Foreground="#737779" FontSize="15" FontWeight="Bold">Loading Final Fantasy XIV Resources</Label>
+        <Border Height="2"  Background="#e3e5e6" VerticalAlignment="Top" Margin="0,35,0,0" />
+        <ProgressBar Name="PB" HorizontalAlignment="Left" Height="143" Margin="128,100,0,0" VerticalAlignment="Top" Width="174" Style="{DynamicResource MaterialDesignCircularProgressBar}"/>
+        <TextBlock Name="SheetName" HorizontalAlignment="Left" Margin="148,133,0,0" FontSize="25" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="64" Width="133" TextAlignment="Center"/>
+        <TextBlock Name="Percentage" HorizontalAlignment="Left" FontSize="20" Margin="148,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="41" Width="133" TextAlignment="Center"/>
+    </Grid>
+</UserControl>

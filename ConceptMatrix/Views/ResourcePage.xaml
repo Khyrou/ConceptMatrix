@@ -1,0 +1,335 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions" 
+             xmlns:Control="clr-namespace:ConceptMatrix.Controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:ConceptMatrix.Backend.Converters" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Class="ConceptMatrix.Views.ResourcePage"
+             mc:Ignorable="d" 
+             d:DesignHeight="1822" d:DesignWidth="444">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <core:Double x:Key="ColumnWidth1">134</core:Double>
+            <core:Double x:Key="ColumnWidth2">200</core:Double>
+            <converters:BitMapConverter x:Key="BitmapConverter"/>
+            <Style x:Key="MenuLevel2" BasedOn="{StaticResource MetroTabItem}" TargetType="{x:Type TabItem}">
+                <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="10.37"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ComboBox Foreground="#737779" Width="200" FontSize="15" FontWeight="Bold" ItemsSource="{Binding Names}" SelectedIndex="{Binding SelectedIndex}"/>
+                <Button Width="75" FontSize="20" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=RefreshEntitiesCommand}" Content="&#xF021;" FontFamily="/Resources/#FontAwesome"/>
+                <Button Width="125" FontSize="14" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=ActorRefreshCommand}" Content="Actor Refresh"/>
+            </StackPanel>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <ScrollViewer DockPanel.Dock="Bottom" Margin="0,0,-13,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="NPC Appearance + Equipment" Name="NPCButton" Click="NPCButton_Click" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                        <CheckBox Content="Name" IsChecked="{Binding AddressList[ActorName].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" />
+                        <TextBox Width="{StaticResource ColumnWidth2}" Text="{Binding AddressList[ActorName].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="FC Tag:" IsChecked="{Binding AddressList[FCTag].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" />
+                        <TextBox Width="60" TextAlignment="Center" Text="{Binding AddressList[FCTag].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Title:" IsChecked="{Binding AddressList[Title].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" />
+                        <ComboBox Name="TitleBox" SelectedIndex="{Binding AddressList[Title].UserValue, UpdateSourceTrigger=PropertyChanged}"  Width="184">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Entity Type:" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorType].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorType].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Model Type:" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ModelChara].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ModelChara].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="ModelCharaButton" Content="View" Click="ModelCharaButton_Click"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Voice:" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorVoice].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorVoice].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <Button x:Name="FreezeButton" Content="Freeze Actor Data" Click="FreezeButton_Click"/>
+                        <Button x:Name="UnfreezeButton" Content="Unfreeze Actor Data" Margin="20,0,0,0" Click="UnfreezeButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <CheckBox Content="Race" Foreground="#737779" Width="{StaticResource ColumnWidth1}" IsChecked="{Binding AddressList[ActorData].ArrayValue[0].Freeze, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[0].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <ComboBox Name="RaceBox" SelectedIndex="{Binding AddressList[ActorData].ArrayValue[0].UserValue, UpdateSourceTrigger=PropertyChanged}"  Width="{StaticResource ColumnWidth1}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Gender" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[1].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="GenderTextBox" Width="60" Text="{Binding AddressList[ActorData].ArrayValue[1].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <ComboBox Name="GenderBox" SelectedIndex="{Binding AddressList[ActorData].ArrayValue[1].UserValue, UpdateSourceTrigger=PropertyChanged}"  Width="{StaticResource ColumnWidth1}">
+                            <ComboBoxItem Content="Male" Background="{x:Null}"/>
+                            <ComboBoxItem Content="Female" Background="{x:Null}"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Body Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"  IsChecked="{Binding AddressList[ActorData].ArrayValue[2].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[2].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Height" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[3].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[3].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Clan" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[4].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="ClanTextBox" Width="60" Text="{Binding AddressList[ActorData].ArrayValue[4].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <ComboBox Name="ClanBox" SelectedIndex="{Binding AddressList[ActorData].ArrayValue[4].UserValue, UpdateSourceTrigger=PropertyChanged}"  Width="{StaticResource ColumnWidth1}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Head Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[5].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[5].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Hair Style" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[6].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[6].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="HairButton" Content="View" Click="HairButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Highlights" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[7].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[7].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Skin Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[8].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[8].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="SkinColorButton" Content="View" Click="SkinColorButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Right Eye Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[9].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[9].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="RightEyeColorButton" Content="View" Click="RightEyeColorButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Hair Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[10].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[10].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="HairColorButton" Content="View" Click="HairColorButton_Click" />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Highlight Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[11].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[11].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="HighlightColorButton" Content="View" Click="HighlightColorButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Facial Features" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[12].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[12].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="FacialFeatureButton" Content="View" Click="FacialFeatureButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Limbal Eyes" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[13].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[13].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="LimbalEyeColor" Content="View" Click="LimbalEyeColor_Click"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="EyeBrow Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[14].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[14].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Left Eye Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[15].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[15].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="LeftEyeColorButton" Content="View" Click="LeftEyeColorButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Eye Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[16].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[16].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Nose Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[17].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[17].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Jaw Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[18].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[18].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Mouth Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[19].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[19].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Lip Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[20].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[20].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Name="LipColorButton" Content="View" Click="LipColorButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Extra Feature Scale" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[21].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[21].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Extra Feature Type" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[22].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[22].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Bust Scale" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[23].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[23].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Face Paint" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[24].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[24].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Content="View" Name="FacePaintButton" Click="FacePaintButton_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Face Paint Color" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center" IsChecked="{Binding AddressList[ActorData].ArrayValue[25].Freeze, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="60" Text="{Binding AddressList[ActorData].ArrayValue[25].UserValue, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Content="View" Name="FacePaintColorButton" Click="FacePaintColorButton_Click"  />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+        <mah:Flyout Name="ActorCustom" Position="Right" IsOpen="False" Width="422" Margin="0,45,-12,0" AnimateOpacity="True" Header="Actor Customization" >
+            <Grid Margin="10">
+                <mah:MetroAnimatedTabControl Grid.Row="1" mah:TabControlHelper.Underlined="TabPanel" Background="{x:Null}" SelectionChanged="MetroAnimatedTabControl_SelectionChanged" >
+                    <TabItem Header="Hair Styles" Name="HairTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid Grid.Row="1">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/ConceptMatrix;component/Resources/Background.png">
+                                </ImageBrush>
+                            </Grid.Background>
+
+                            <ListView x:Name="CharacterFeature" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="CharacterFeature_SelectionChanged">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding FeatureImage, Converter={StaticResource BitmapConverter}}" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding ID}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Foreground="White"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal">
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Face Paint" Name="PaintTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid Grid.Row="1">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/ConceptMatrix;component/Resources/Background.png">
+                                </ImageBrush>
+                            </Grid.Background>
+                            <CheckBox Content="Reverse Face Paint" x:Name="CheckIncluded" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="237" Height="17" Foreground="White"/>
+
+                            <ListView x:Name="FacePaintFeature" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="FacePaintFeature_SelectionChanged" Margin="0,17,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding FeatureImage, Converter={StaticResource BitmapConverter}}" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding ID}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Foreground="White"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal">
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Facial Features" Name="FacialTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid Grid.Row="1">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/ConceptMatrix;component/Resources/Background.png">
+                                </ImageBrush>
+                            </Grid.Background>
+                            <ListView x:Name="FacialFeatureView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Multiple" SelectionChanged="FacialFeatureView_SelectionChanged">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image Source="{Binding FeatureImage}" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding FeatureID}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="15" Foreground="White"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal">
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Color Selector" Name="ColorTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <ListView x:Name="colorListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,42,0,0" SelectionChanged="colorListView_SelectionChanged" Padding="0">
+                                <ListView.ItemsPanel>
+
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel>
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+
+                                </ListView.ItemsPanel>
+                            </ListView>
+                            <ComboBox materialDesign:HintAssist.Hint="Select Type" x:Name="ColorBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" SelectionChanged="ColorBox_SelectionChanged" PreviewMouseDown="ColorBox_PreviewMouseDown" Margin="0,9,0,0">
+                                <ComboBoxItem Content="Skin Color"/>
+                                <ComboBoxItem Content="Hair Color"/>
+                                <ComboBoxItem Content="Highlight Color"/>
+                                <ComboBoxItem Content="Lip Color"/>
+                                <ComboBoxItem Content="Right Eye Color"/>
+                                <ComboBoxItem Content="Left Eye Color"/>
+                                <ComboBoxItem Content="FacePaint Color"/>
+                                <ComboBoxItem Content="Limbal Eye Color"/>
+                            </ComboBox>
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Header="NPC Select" Name="NPCTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="residentlist" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="residentlist_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBox x:Name="SearchNPCName" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="153,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" TextChanged="SearchNPCName_TextChanged"/>
+                            <ComboBox SelectedIndex="0" materialDesign:HintAssist.Hint="Select Type..." x:Name="LoadType" HorizontalAlignment="Left" Margin="2,7,0,0" VerticalAlignment="Top" Width="146">
+                                <ComboBoxItem Content="All"/>
+                                <ComboBoxItem Content="Appearance Only"/>
+                                <ComboBoxItem Content="Equipment Only"/>
+                            </ComboBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="ModelChara" Name="ModelTab" Style="{DynamicResource MenuLevel2}">
+                        <Grid>
+                            <DataGrid x:Name="ModelCharaList" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden" SelectionChanged="ModelCharaList_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11.5" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBox x:Name="SearchModelName" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" TextChanged="SearchModelName_TextChanged" />
+                        </Grid>
+                    </TabItem>
+                </mah:MetroAnimatedTabControl>
+            </Grid>
+        </mah:Flyout>
+
+    </Grid>
+</UserControl>

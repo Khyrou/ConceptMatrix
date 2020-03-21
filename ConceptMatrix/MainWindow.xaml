@@ -1,0 +1,54 @@
+﻿<mde:MaterialWindow 
+        x:Class="ConceptMatrix.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+        xmlns:local="clr-namespace:ConceptMatrix"
+        Background="{DynamicResource MaterialDesignBackground}"
+        xmlns:CMControl="clr-namespace:ConceptMatrix.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="660" Loaded="MaterialWindow_Loaded">
+    <Grid Name="grid1" Width="auto" Height="auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--左-->
+        <ScrollViewer Grid.Column="0" Grid.Row="0"
+                      VerticalScrollBarVisibility="Visible" Background="#354052" Padding="0,5,-17,5">
+            <StackPanel>
+                <CMControl:CMMenuPanel x:Name="menuPanel"
+                                            RefreshClicked="menuPanel_RefreshClicked"
+                                            PageSelected="menuPanel_PageSelected"/>
+                <Border Height="2" Background="#323d4f" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="150" >
+                    <Label  Content="Gpose Mode:" Name="Gposex" Foreground="#919cae" FontFamily="Microsoft YaHei" FontSize="10.5"></Label>
+                    <ToggleButton Name="GposeToggle" IsChecked="{Binding GposeChecked}"/>
+                </StackPanel>
+                <Border Height="2" Background="#323d4f" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="150" >
+                    <Label  Content="Target Mode:" Foreground="#919cae" FontFamily="Microsoft YaHei" FontSize="10.5"></Label>
+                    <ToggleButton Name="TargetToggle" IsChecked="{Binding TargetModeActive}"/>
+                </StackPanel>
+                <Border Height="2" Background="#323d4f" />
+                <CMControl:CMMenuButton x:Name="Savebutton" IconText="&#x21AA;" ContentText="Save Appearance" IconFontSize="20" Height="34" MouseLeftButtonDown="Savebutton_MouseLeftButtonDown"/>
+                <Border Height="2" Background="#323d4f" />
+                <CMControl:CMMenuButton x:Name="Loadbutton" IconText="&#x21A9;" ContentText="Load Appearance" IconFontSize="20" Height="34" MouseLeftButtonDown="Loadbutton_MouseLeftButtonDown"/>
+                <Border Height="2" Background="#323d4f" />
+                <CMControl:CMMenuButton x:Name="UncheckButton" IconText="&#x274C;" ContentText="Uncheck All" IconFontSize="15" Height="34" MouseLeftButtonDown="UncheckButton_MouseLeftButtonDown" />
+
+            </StackPanel>
+            <ScrollViewer.Effect>
+                <DropShadowEffect Opacity="0.6" BlurRadius="2" ShadowDepth="1"/>
+            </ScrollViewer.Effect>
+        </ScrollViewer>
+        <GridSplitter x:Name="gridSplitter" Height="auto" Width="5" Grid.Column="0" Grid.Row="0" Background="#01354052" />
+        <!--右-->
+        <Frame Grid.Column="1" Grid.Row="0"
+               Name="contentFrame"
+               Padding="14"
+               NavigationUIVisibility="Hidden" />
+    </Grid>
+</mde:MaterialWindow>

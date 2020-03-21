@@ -1,0 +1,6 @@
+[submodule "lib/SaintCoinach"]
+	path = lib/SaintCoinach
+	url = https://github.com/Khyrou/SaintCoinach.git
+[submodule "lib/Nhaama"]
+	path = lib/Nhaama
+	url = https://github.com/Khyrou/Nhaama.git

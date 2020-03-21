@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="ConceptMatrix.Controls.CMMenuPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Controls"
+             mc:Ignorable="d" 
+            d:DesignHeight="496" d:DesignWidth="185">
+    <StackPanel>
+        <local:CMMenuButton  IconText="&#xF021;" ContentText="Refresh Process" IconFontSize="17.85" Height="44"
+                                          MouseLeftButtonUp="CMMenuPanel_MouseLeftButtonUp"/>
+        <Border Height="2" Background="#323d4f" />
+        <local:CMMenuLabel IconText="&#x1F464;" ContentText="Actor Properties" IconFontSize="12"/>
+        <ItemsControl x:Name="playerList" ItemsSource="{Binding Path=PlayerList, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:CMMenuPageSelector MouseLeftButtonUp="item_MouseLeftButtonUp" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Height="2" Background="#323d4f" />
+        <local:CMMenuLabel IconText="&#x1F15C;" ContentText="Actor's Model Data" IconFontSize="9.5"/>
+        <ItemsControl x:Name="cityList" ItemsSource="{Binding Path=CityList, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:CMMenuPageSelector MouseLeftButtonUp="item_MouseLeftButtonUp" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Height="2" Background="#323d4f" />
+        <local:CMMenuLabel IconText="&#x1F574;" ContentText="Posing Matrix" IconFontSize="12"/>
+        <ItemsControl x:Name="armyList" ItemsSource="{Binding Path=ArmyList, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:CMMenuPageSelector MouseLeftButtonUp="item_MouseLeftButtonUp" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Height="2" Background="#323d4f" />
+        <local:CMMenuLabel IconText="&#x1F310;" ContentText="World" IconFontSize="10.3"/>
+        <ItemsControl x:Name="researchList" ItemsSource="{Binding Path=ResearchList, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:CMMenuPageSelector MouseLeftButtonUp="item_MouseLeftButtonUp" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Height="2" Background="#323d4f" />
+        <local:CMMenuLabel IconText="&#xF188;" ContentText="Debug" IconFontSize="11"/>
+        <ItemsControl x:Name="debugList" ItemsSource="{Binding Path=DebugList, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:CMMenuPageSelector MouseLeftButtonUp="item_MouseLeftButtonUp" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.ZonePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:ConceptMatrix.Backend.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="1822" d:DesignWidth="444">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <core:Double x:Key="ColumnWidth1">134</core:Double>
+            <core:Double x:Key="ColumnWidth2">200</core:Double>
+            <converters:BitMapConverter x:Key="BitmapConverter"/>
+            <DataTemplate x:Key="cmbTemplate">
+                <WrapPanel>
+                    <Image Width="35" Height="35" Source="{Binding Icon, Converter={StaticResource BitmapConverter}}"/>
+                    <Label Content="{Binding Name}" Margin="0,5,0,0" FontSize="13"/>
+                </WrapPanel>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ComboBox Foreground="#737779" Width="200" FontSize="15" FontWeight="Bold" ItemsSource="{Binding Names}" SelectedIndex="{Binding SelectedIndex}"/>
+                <Button Width="75" FontSize="20" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=RefreshEntitiesCommand}" Content="&#xF021;" FontFamily="/Resources/#FontAwesome"/>
+                <Button Width="125" FontSize="14" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=ActorRefreshCommand}" Content="Actor Refresh"/>
+            </StackPanel>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <ScrollViewer DockPanel.Dock="Bottom" Margin="0,0,-13,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Time Control:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="TimeUPDown" Width="150" Value="{Binding AddressList[TimeControl].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="1" NumericInputMode="Numbers" HasDecimals="False" Maximum="2147483647" Minimum="-2147483648"/>
+                        <Button x:Name="TimeResetButton" Width="125" Margin="10,0,0,0" Content="Reset Time" Click="TimeResetButton_Click"></Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Time Control Slider:" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <Slider Width="306" Value="{Binding AddressList[TimeControl].UserValue, UpdateSourceTrigger=PropertyChanged}" BorderThickness="5" Maximum="90000" SmallChange="1" Interval="1"  Minimum="-90000"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Weather:" IsChecked="{Binding AddressList[Weather].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Value="{Binding AddressList[Weather].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="150" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="1" NumericInputMode="Numbers" HasDecimals="False" Maximum="145" Minimum="1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Weather List:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <ComboBox Margin="0,5,0,0" ItemTemplate="{StaticResource cmbTemplate}" Name="WeatherBox" Width="150" SelectionChanged="WeatherBox_SelectionChanged" PreviewMouseDown="WeatherBox_PreviewMouseDown">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                        <Button x:Name="RefreshWeather" Margin="10,0,0,0" Content="Refresh" Width="125" Padding="0,4" Click="RefreshWeather_Click"></Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <CheckBox Content="Force Weather:" IsChecked="{Binding AddressList[ForceWeather].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <ComboBox Name="WeatherBox2" ItemTemplate="{StaticResource cmbTemplate}"  SelectedValuePath="Key" SelectedValue="{Binding AddressList[ForceWeather].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <CheckBox Content="BGM:"  Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <TextBox Name="BGMTextBox" Width="50" Text="0" Style="{StaticResource TrainerTextBoxStyle}" TextAlignment="Center" />
+                        <Button Content="Apply" Margin="10,0,0,0" Name="BGMApply" Click="BGMApply_Click"></Button>
+                        <Button Name="BGMButton" Content="View"  Margin="10,0,0,0" Click="BGMButton_Click"></Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <Label Content="Remove Actor Render Limit:" Foreground="#737779"  Width="{StaticResource ColumnWidth2}" VerticalAlignment="Center" />
+                        <ToggleButton Name="RenderToggle" Checked="RenderToggle_Checked" Unchecked="RenderToggle_Unchecked"/>
+                        <Button Content="Render Cycle" Name="RenderButton" Margin="10,0,0,0" Click="RenderButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+        <mah:Flyout Name="BGMFlyOut" Position="Right" IsOpen="False" Width="422" Margin="0,45,-12,0" AnimateOpacity="True" Header="BGM Flyout">
+            <Grid>
+                <DataGrid x:Name="BGMBox" HorizontalAlignment="Left" Margin="2,34,0,0" VerticalAlignment="Top" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"  HorizontalScrollBarVisibility="Hidden"  SelectionChanged="BGMBox_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Index}" FontSize="10" Width="45"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" FontSize="11" Width="220"/>
+                        <DataGridTextColumn Header="Location" Binding="{Binding Path=Location}" FontSize="11" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <TextBox x:Name="SearchBGM" materialDesign:HintAssist.Hint="Search..." HorizontalAlignment="Left" Margin="6,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" TextChanged="SearchBGM_TextChanged"/>
+            </Grid>
+        </mah:Flyout>
+    </Grid>
+</UserControl>

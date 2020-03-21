@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.EquipmentPropertiesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:ConceptMatrix.Backend.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="1822" d:DesignWidth="444">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <core:Double x:Key="ColumnWidth1">134</core:Double>
+            <core:Double x:Key="ColumnWidth2">200</core:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ComboBox Foreground="#737779" Width="200" FontSize="15" FontWeight="Bold" ItemsSource="{Binding Names}" SelectedIndex="{Binding SelectedIndex}"/>
+                <Button Width="75" FontSize="20" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=RefreshEntitiesCommand}" Content="&#xF021;" FontFamily="/Resources/#FontAwesome"/>
+                <Button Width="125" FontSize="14" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=ActorRefreshCommand}" Content="Actor Refresh"/>
+            </StackPanel>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <ScrollViewer DockPanel.Dock="Bottom" Margin="0,0,-13,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Main-Hand Scale" Width="218">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="X:" IsChecked="{Binding AddressList[WeaponX].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponX].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Y:" IsChecked="{Binding AddressList[WeaponY].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponY].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Z:" IsChecked="{Binding AddressList[WeaponZ].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Button x:Name="ZeroMain" Content="Zero-Scale" Width="200" Click="ZeroMain_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Main-Hand Color">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Red:" IsChecked="{Binding AddressList[WeaponRed].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponRed].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Green:" IsChecked="{Binding AddressList[WeaponGreen].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponGreen].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Blue:" IsChecked="{Binding AddressList[WeaponBlue].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[WeaponBlue].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Off-Hand Scale" Width="218">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="X:" IsChecked="{Binding AddressList[OffhandX].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandX].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Y:" IsChecked="{Binding AddressList[OffhandY].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandY].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Z:" IsChecked="{Binding AddressList[OffhandZ].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Button x:Name="ZeroOff" Content="Zero-Scale" Width="200" Click="ZeroOff_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Off-Hand Color">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Red:" IsChecked="{Binding AddressList[OffhandRed].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandRed].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Green:" IsChecked="{Binding AddressList[OffhandGreen].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandGreen].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Blue:" IsChecked="{Binding AddressList[OffhandBlue].Freeze, UpdateSourceTrigger=PropertyChanged}" Width="80" Foreground="#737779"/>
+                                    <mah:NumericUpDown Value="{Binding AddressList[OffhandBlue].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</UserControl>

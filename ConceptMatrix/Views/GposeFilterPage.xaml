@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.GposeFilterPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1822" d:DesignWidth="444">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/TextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <core:Double x:Key="ColumnWidth1">134</core:Double>
+            <core:Double x:Key="ColumnWidth2">200</core:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ComboBox Foreground="#737779" Width="200" FontSize="15" FontWeight="Bold" ItemsSource="{Binding Names}" SelectedIndex="{Binding SelectedIndex}"/>
+                <Button Width="75" FontSize="20" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=RefreshEntitiesCommand}" Content="&#xF021;" FontFamily="/Resources/#FontAwesome"/>
+                <Button Width="125" FontSize="14" FontWeight="Bold" Padding="5,0" Margin="10,0,0,0" Command="{Binding Path=ActorRefreshCommand}" Content="Actor Refresh"/>
+            </StackPanel>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <ScrollViewer DockPanel.Dock="Bottom" Margin="0,0,-13,0">
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox SelectedValue="{Binding AddressList[GposeFilterTable].ArrayString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag"  Material:HintAssist.Hint="Filters" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaxDropDownHeight="150" x:Name="Filters" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" IsTabStop="False" RenderTransformOrigin="0.5,0.577" FontSize="16" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" SelectionChanged="Filters_SelectionChanged">
+                            <ComboBoxItem Content="Normal" Tag="00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Sepia" Tag="CD CC CC 3D 66 66 66 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 99 BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C BE 00 00 80 3F 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Sepia 2" Tag="CD CC 4C 3E CD CC 4C 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF 00 00 00 00 CD CC CC 3D 66 66 66 3F 9A 99 99 3E 00 00 00 00 CD CC 4C 3E 00 00 00 00 CD CC 4C BE 00 00 00 00"/>
+                            <ComboBoxItem Content="Monochrome 1" Tag="00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 00 00"/>
+                            <ComboBoxItem Content="Monochrome 2" Tag="00 00 00 3F 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 00 00"/>
+                            <ComboBoxItem Content="Bright 1" Tag="00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC CC 3D 00 00 00 00 CD CC CC 3D CD CC 4C BE 00 00 00 00 CD CC 4C BE 00 00 00 00"/>
+                            <ComboBoxItem Content="Bright 2" Tag="CD CC 4C 3E 9A 99 19 3F 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 19 3F 00 00 00 00 00 00 00 00 CD CC 4C 3F 9A 99 19 3F CD CC CC 3E CD CC CC 3E 9A 99 19 BF CD CC 4C 3E CD CC CC 3D"/>
+                            <ComboBoxItem Content="Bright 3" Tag="CD CC 4C 3E CD CC 4C 3F 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3E CD CC CC BD 00 00 00 00 CD CC 4C 3F CD CC 4C 3F 00 00 80 3F CD CC CC 3E 00 00 00 00 CD CC 4C 3E 00 00 00 00"/>
+                            <ComboBoxItem Content="Bright 4" Tag="00 00 00 00 CD CC 4C 3F 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 19 3F 00 00 00 00 00 00 00 00 33 33 33 3F 9A 99 19 3F 00 00 00 3F CD CC CC 3E 9A 99 19 BF CD CC 4C 3E 00 00 00 00"/>
+                            <ComboBoxItem Content="Posterization 1" Tag="00 00 00 3F 00 00 00 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3E 00 00 00 3F 00 00 00 00"/>
+                            <ComboBoxItem Content="Posterization 2" Tag="66 66 66 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 00 00"/>
+                            <ComboBoxItem Content="ColoredPencil" Tag="CD CC CC 3E 9A 99 19 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC CC 3D 9A 99 99 BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3E CD CC CC BD CD CC 4C BE"/>
+                            <ComboBoxItem Content="Pencil" Tag="CD CC CC 3E 33 33 33 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C BE 00 00 80 3F 00 00 00 00"/>
+                            <ComboBoxItem Content="ColoredMarker1" Tag="00 00 00 00 CD CC CC 3E CD CC CC BE 9A 99 19 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 99 BE CD CC 4C 3E 00 00 00 00"/>
+                            <ComboBoxItem Content="ColoredMarker2" Tag="00 00 00 00 33 33 B3 3E CD CC CC BE CD CC CC 3E 00 00 00 00 CD CC 4C BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 99 BE CD CC CC 3E 00 00 00 00"/>
+                            <ComboBoxItem Content="Pastel1" Tag="CD CC CC 3D CD CC CC 3E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC CC 3D 9A 99 99 BE 9A 99 19 3F 9A 99 19 3F 9A 99 19 3F CD CC CC BD CD CC 4C 3E 00 00 00 00 CD CC 4C BE"/>
+                            <ComboBoxItem Content="Pastel2" Tag="CD CC CC 3D 9A 99 99 3E 00 00 00 00 CD CC 4C BE 00 00 00 00 CD CC CC BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Pastel3" Tag="CD CC CC 3D CD CC CC 3E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC CC 3D 9A 99 99 BE 33 33 33 3F 33 33 33 3F 33 33 33 3F CD CC 4C BE CD CC 4C 3E CD CC 4C BE CD CC 4C BE"/>
+                            <ComboBoxItem Content="Monotone 1" Tag="CD CC CC 3D 66 66 66 3F 00 00 00 00 CD CC 4C 3E 00 00 00 00 00 00 80 BF 00 00 00 00 00 00 00 00 66 66 66 3F CD CC CC 3D 00 00 00 3F CD CC 4C 3E 00 00 00 00 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Monotone 2" Tag="CD CC CC 3D 66 66 66 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF 00 00 00 00 CD CC CC 3D CD CC CC 3D CD CC CC 3E CD CC CC 3D CD CC 4C 3E CD CC 4C BE 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Monotone 3" Tag="CD CC CC 3D 66 66 66 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF 00 00 00 00 CD CC CC 3D CD CC CC 3D CD CC CC 3E 00 00 80 3F 9A 99 99 3E 00 00 00 00 CD CC 4C BE 00 00 00 00"/>
+                            <ComboBoxItem Content="Echo" Tag="00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C BE CD CC 4C BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9A 99 19 3F 00 00 00 00 00 00 00 00"/>
+                            <ComboBoxItem Content="Aetherometer" Tag="9A 99 99 3E 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 33 3F 9A 99 99 3E 00 00 80 3F CD CC 4C BF 00 00 80 BF 00 00 80 3F"/>
+                            <ComboBoxItem Content="StrengthenedEffects" Tag="00 00 80 3E 00 00 00 3F CD CC CC BE CD CC 4C BE 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"/>
+                        </ComboBox>
+                        <Button Content="Load" Margin="10,0,0,0"/>
+                        <Button Content="Save" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Enable Filter:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <Label Content="Off" Foreground="#737779"></Label>
+                        <ToggleButton x:Name="FilterEnable" IsChecked="{Binding EnabledEditing, UpdateSourceTrigger=PropertyChanged}" Checked="FilterEnable_Checked" Unchecked="FilterEnable_Unchecked"></ToggleButton>
+                        <Label Content="On" Foreground="#737779"></Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Freeze All:" Margin="0,0,0,0" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"></Label>
+                        <Label Content="No" Foreground="#737779"></Label>
+                        <ToggleButton x:Name="FreezeAll" IsChecked="{Binding AddressList[GposeFilterTable].Freeze, UpdateSourceTrigger=PropertyChanged}"></ToggleButton>
+                        <Label Content="Yes" Foreground="#737779"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Brightness:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Brightness" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[0].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[0].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Exposure:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Exposure" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[1].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[1].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Filmic:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Filmic" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[2].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[2].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="SHDR:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="SHDR" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[3].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[3].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="UnKnown?:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Unknown" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[4].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[4].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Colorfulness:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Colorfulness" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[5].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[5].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Contrast:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Contrast" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[6].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[6].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Contrast 2:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown x:Name="Contrast2" Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[7].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[7].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Gamma Red:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[8].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[8].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Gamma Green:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[9].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[9].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Gamma Blue:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[10].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[10].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Gamma:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[11].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[11].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Vibrance:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[12].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[12].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Colorfulnesss 2:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[13].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[13].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="HDR:" Foreground="#737779"  Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
+                        <mah:NumericUpDown Width="150" Value="{Binding AddressList[GposeFilterTable].ArrayValue[14].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left"  BorderThickness="2" Interval="0.1"/>
+                        <Slider Value="{Binding AddressList[GposeFilterTable].ArrayValue[14].UserValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="100" Maximum="1" Minimum="-1" LargeChange="0.2" TickFrequency="0.1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</UserControl>

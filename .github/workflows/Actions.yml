@@ -1,0 +1,34 @@
+name: Build ConceptMatrix
+on: [push]
+
+jobs:
+  build:
+    name: Build on Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Initialize Submodules
+        run: git submodule update --init --recursive
+      - name: Setup Nuget
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: 'latest'
+      - name: Restore Nuget Packages
+        run: nuget restore ConceptMatrix.sln
+      - name: Define VERSION
+        run: |
+          $env:COMMIT = $env:GITHUB_SHA.Substring(0, 7)
+          $env:REPO_NAME = $env:GITHUB_REPOSITORY -replace '.*/'
+          $env:BRANCH = $env:GITHUB_REF -replace '.*/'
+          ($env:REPO_NAME) >> VERSION
+          ($env:BRANCH) >> VERSION
+          ($env:COMMIT) >> VERSION
+      - name: Build DotNet4
+        run: |
+          cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+           .\MSBuild.exe $Env:GITHUB_WORKSPACE\ConceptMatrix.sln /t:Build /p:Configuration=Release
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: cmtool-artifact
+          path: ConceptMatrix\bin\Release\

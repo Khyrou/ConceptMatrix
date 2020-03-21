@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ConceptMatrix.Views.HelloPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ConceptMatrix.Views"
+             xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+
+             d:DesignHeight="391.416" d:DesignWidth="444">
+    <Grid>
+        <DockPanel>
+            <Label Foreground="#737779" FontSize="15" FontWeight="Bold" DockPanel.Dock="Top">WARNING</Label>
+            <Border Height="2" Background="#e3e5e6" Margin="0,10" DockPanel.Dock="Top" />
+            <TextBox FontSize="12" Foreground="#FF737779" Background="{x:Null}" BorderThickness="0"
+                     VerticalScrollBarVisibility="Auto" IsReadOnly="True" DockPanel.Dock="Bottom" TextWrapping="Wrap" Text="At present, this application is in developing stages.&#xA;&#xA;[compatibility]&#xA;1. Non-64 bit computers may not work properly.&#xA;2. Supported game version is DirectX11.&#xA;&#xA;[INSTRUCTIONS]&#xA;1. The current Windows account needs to have Admin privileges to run this application. &#xD;&#xA;2. The game must be running.&#xA;&#xA;[File a bug]&#xA;1. What cannot be reproduced is not a bug.&#xA;2. Report the bug in our discord server: https://discord.gg/hq3DnBa"/>
+        </DockPanel>
+        <Border VerticalAlignment="Bottom" Background="#FF1F8DD6" BorderThickness="0" CornerRadius="4">
+            <TextBlock Foreground="White" Padding="10,8" OverridesDefaultStyle="True" VerticalAlignment="Center"
+                       Text="{Binding Path=PromptText}" TextWrapping="Wrap"/>
+        </Border>
+    </Grid>
+</UserControl>
