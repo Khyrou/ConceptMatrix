@@ -40,5 +40,19 @@ namespace ConceptMatrix.Views
             ((FloatAddress)BaseModel.AddressList["OffhandY"]).WriteMemory((float)0);
             ((FloatAddress)BaseModel.AddressList["OffhandZ"]).WriteMemory((float)0);
         }
+
+        private void DefaultMain_Click(object sender, RoutedEventArgs e)
+        {
+            ((FloatAddress)BaseModel.AddressList["WeaponX"]).WriteMemory((float)1);
+            ((FloatAddress)BaseModel.AddressList["WeaponY"]).WriteMemory((float)1);
+            ((FloatAddress)BaseModel.AddressList["WeaponZ"]).WriteMemory((float)1);
+        }
+
+        private void DefaultSub_Click(object sender, RoutedEventArgs e)
+        {
+            ((FloatAddress)BaseModel.AddressList["OffhandX"]).WriteMemory((float)1);
+            ((FloatAddress)BaseModel.AddressList["OffhandY"]).WriteMemory((float)1);
+            ((FloatAddress)BaseModel.AddressList["OffhandZ"]).WriteMemory((float)1);
+        }
     }
 }

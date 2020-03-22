@@ -45,7 +45,8 @@
                                     <mah:NumericUpDown Value="{Binding AddressList[WeaponZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                    <Button x:Name="ZeroMain" Content="Zero-Scale" Width="200" Click="ZeroMain_Click"/>
+                                    <Button x:Name="ZeroMain" Content="Zero-Scale"  Click="ZeroMain_Click"/>
+                                    <Button x:Name="DefaultMain" Content="Default"  Margin="10,0,0,0" Click="DefaultMain_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -83,7 +84,8 @@
                                     <mah:NumericUpDown Value="{Binding AddressList[OffhandZ].UserValue, UpdateSourceTrigger=PropertyChanged}" Width="125" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" Interval="0.01" TextAlignment="Left" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                    <Button x:Name="ZeroOff" Content="Zero-Scale" Width="200" Click="ZeroOff_Click"/>
+                                    <Button x:Name="ZeroOff" Content="Zero-Scale"  Click="ZeroOff_Click"/>
+                                    <Button x:Name="DefaultSub" Content="Default"  Margin="10,0,0,0" Click="DefaultSub_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
