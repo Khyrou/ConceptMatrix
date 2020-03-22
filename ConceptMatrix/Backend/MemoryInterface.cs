@@ -842,6 +842,7 @@ namespace ConceptMatrix.Backend
 		}
 		public void WriteMemory(Single value)
 		{
+			_Value = value.ToString();
 			Value = value.ToString();
 			MainWindow.GameProcess.Write(value, (BaseModel.GetPointerType(PointerType) + Address), AddressArray);
 			if (Name == "AnimationSpeed") MainWindow.GameProcess.Write(value, (BaseModel.GetPointerType(PointerType) + Address), BaseModel.Offsets.AnimationSpeed2);

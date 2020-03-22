@@ -75,6 +75,7 @@
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Content="Animation Speed:" IsChecked="{Binding AddressList[AnimationSpeed].Freeze, UpdateSourceTrigger=PropertyChanged}" Foreground="#737779" Width="{StaticResource ColumnWidth1}" VerticalAlignment="Center"/>
                         <mah:NumericUpDown Width="150" Value="{Binding AddressList[AnimationSpeed].UserValue, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Style="{DynamicResource MaterialDesignNumericUpDown}" TextAlignment="Left" BorderThickness="2" Interval="0.01" />
+                        <Button x:Name="AnimSetZero" Content="Set to Zero" Margin="10,0,0,0" Click="AnimSetZero_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Freeze Facial Expression:" Foreground="#737779" Width="auto" VerticalAlignment="Center"/>

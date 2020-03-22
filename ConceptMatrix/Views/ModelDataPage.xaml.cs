@@ -199,5 +199,10 @@ namespace ConceptMatrix.Views
                 }
             }
         }
+
+        private void AnimSetZero_Click(object sender, RoutedEventArgs e)
+        {
+			((FloatAddress)BaseModel.AddressList["AnimationSpeed"]).WriteMemory((float)0);
+        }
     }
 }
