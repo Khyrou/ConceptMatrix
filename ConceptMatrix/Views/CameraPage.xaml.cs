@@ -20,9 +20,11 @@ namespace ConceptMatrix.Views
     /// </summary>
     public partial class CameraPage : UserControl
     {
+        public static CameraPage Page;
         public CameraPage()
         {
             InitializeComponent();
+            Page = this;
         }
     }
 }

@@ -341,6 +341,9 @@ namespace ConceptMatrix.Models
 										ModelDataPage.Page.StackViewX.IsEnabled = false;
 										ModelDataPage.Page.StackViewY.IsEnabled = false;
 										ModelDataPage.Page.StackViewZ.IsEnabled = false;
+										CameraPage.Page.StackViewX.IsEnabled = false;
+										CameraPage.Page.StackViewY.IsEnabled = false;
+										CameraPage.Page.StackViewZ.IsEnabled = false;
 										PropertiesPage.Page.VFXStack.IsEnabled = false;
 										PosingMatrixPage.PosingMatrix.PoseMatrixSetting.IsEnabled = false;
 										PosingMatrixPage.PosingMatrix.EditModeButton.IsChecked = false;
@@ -359,6 +362,9 @@ namespace ConceptMatrix.Models
 										ModelDataPage.Page.StackViewX.IsEnabled = true;
 										ModelDataPage.Page.StackViewY.IsEnabled = true;
 										ModelDataPage.Page.StackViewZ.IsEnabled = true;
+										CameraPage.Page.StackViewX.IsEnabled = true;
+										CameraPage.Page.StackViewY.IsEnabled = true;
+										CameraPage.Page.StackViewZ.IsEnabled = true;
 										PropertiesPage.Page.VFXStack.IsEnabled = true;
 										PosingMatrixPage.PosingMatrix.PoseMatrixSetting.IsEnabled = true;
 
