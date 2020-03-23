@@ -19,7 +19,7 @@ namespace ConceptMatrix.Backend
 		private bool _Freeze;
 		public bool Freeze { get {return _Freeze; } set { _Freeze = value; OnPropertyChanged("Freeze"); } }
 
-		private byte _Value;
+		private byte _Value { get; set; }
 
 		public ulong index;
 
@@ -70,7 +70,7 @@ namespace ConceptMatrix.Backend
 		private bool _Freeze;
 		public bool Freeze { get { return _Freeze; } set { _Freeze = value; OnPropertyChanged("Freeze"); } }
 
-		private string _Value;
+		private string _Value { get; set; }
 
 		public ulong index;
 
@@ -443,9 +443,9 @@ namespace ConceptMatrix.Backend
 
 		public bool IsEditing { get; set; }
 
-		public byte[] _Value;
+		public byte[] _Value { get; set; }
 
-		public byte[] OldValue;
+		public byte[] OldValue { get; set; }
 		public byte[] Value // this is being set in the backend
 		{
 			get => _Value;
@@ -555,9 +555,9 @@ namespace ConceptMatrix.Backend
 
 		public bool IsEditing { get; set; }
 
-		public byte[] _Value;
+		public byte[] _Value { get; set; }
 
-		public byte[] OldValue;
+		public byte[] OldValue { get; set; }
 		public byte[] Value // this is being set in the backend
 		{
 			get => _Value;
@@ -651,7 +651,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public string _Value;
+		public string _Value { get; set; }
 
 		public string Value // this is being set in the backend
 		{
@@ -809,7 +809,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public string _Value;
+		public string _Value { get; set; }
 
 		public string Value // this is being set in the backend
 		{
@@ -845,7 +845,7 @@ namespace ConceptMatrix.Backend
 			_Value = value.ToString();
 			Value = value.ToString();
 			MainWindow.GameProcess.Write(value, (BaseModel.GetPointerType(PointerType) + Address), AddressArray);
-			if (Name == "AnimationSpeed") MainWindow.GameProcess.Write(value, (BaseModel.GetPointerType(PointerType) + Address), BaseModel.Offsets.AnimationSpeed2);
+			if (Name == "AnimationSpeed") MainWindow.GameProcess.Write((BaseModel.GetPointerType(PointerType) + BaseModel.Offsets.AnimationSpeed2), float.Parse(Value));
 		}
 		public void WriteMemoryFrozen()
 		{
@@ -885,7 +885,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public int _Value;
+		public int _Value { get; set; }
 
 		public int Value // this is being set in the backend
 		{
@@ -1022,7 +1022,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public byte _Value;
+		public byte _Value { get; set; }
 
 		public byte Value // this is being set in the backend
 		{
@@ -1098,7 +1098,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public string _Value;
+		public string _Value { get; set; }
 
 		public string Value // this is being set in the backend
 		{
@@ -1228,7 +1228,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public int _Value;
+		public int _Value { get; set; }
 
 		public int Value // this is being set in the backend
 		{
@@ -1299,7 +1299,7 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public string _Value;
+		public string _Value { get; set; }
 
 		public string Value // this is being set in the backend
 		{
