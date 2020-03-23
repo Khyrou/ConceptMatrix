@@ -199,9 +199,9 @@
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>
-        <mah:Flyout Name="ActorCustom" Position="Right" IsOpen="False" Width="422" Margin="0,45,-12,0" AnimateOpacity="True" Header="Actor Customization" >
+        <mah:Flyout Name="ActorCustom" Position="Right" Width="422" Margin="0,45,-12,0" IsOpen="False" AnimateOpacity="True" Header="Actor Customization" >
             <Grid Margin="10">
-                <mah:MetroAnimatedTabControl Grid.Row="1" mah:TabControlHelper.Underlined="TabPanel" Background="{x:Null}" SelectionChanged="MetroAnimatedTabControl_SelectionChanged" >
+                <mah:MetroAnimatedTabControl x:Name="ActorTabs" Grid.Row="1" mah:TabControlHelper.Underlined="TabPanel" Background="{x:Null}" SelectionChanged="ActorTabs_SelectionChanged" >
                     <TabItem Header="Hair Styles" Name="HairTab" Style="{DynamicResource MenuLevel2}">
                         <Grid Grid.Row="1">
                             <Grid.Background>

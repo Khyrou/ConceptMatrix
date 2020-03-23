@@ -840,6 +840,7 @@ namespace ConceptMatrix.Backend
 			_Value = value;
 			WriteMemory(Single.Parse(value));
 		}
+
 		public void WriteMemory(Single value)
 		{
 			_Value = value.ToString();
@@ -847,6 +848,7 @@ namespace ConceptMatrix.Backend
 			MainWindow.GameProcess.Write(value, (BaseModel.GetPointerType(PointerType) + Address), AddressArray);
 			if (Name == "AnimationSpeed") MainWindow.GameProcess.Write((BaseModel.GetPointerType(PointerType) + BaseModel.Offsets.AnimationSpeed2), float.Parse(Value));
 		}
+
 		public void WriteMemoryFrozen()
 		{
 			MainWindow.GameProcess.Write(float.Parse(Value), (BaseModel.GetPointerType(PointerType) + Address), AddressArray);
@@ -870,6 +872,7 @@ namespace ConceptMatrix.Backend
 		}
 
 		#endregion
+
 		public event PropertyChangedEventHandler PropertyChanged;
     }
 

@@ -39,8 +39,12 @@ namespace ConceptMatrix.Views
             public ImageSource FeatureImage { get; set; }
         }
 
-        private void MetroAnimatedTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ActorTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Checks if Tabcontrol is loaded.
+            var Tab= (TabControl)sender;
+            if (!Tab.IsLoaded) return;
+
             if (e.OriginalSource is TabControl)
             {
                 if (HairTab.IsSelected)
@@ -68,7 +72,6 @@ namespace ConceptMatrix.Views
                     if (!UserDoneInteraction) ResidentSelector(ExdData.Residents.Values.Where(c => c.IsGoodNpc()).ToArray());
                 }
             }
-            else return;
             e.Handled = true;
         }
 
@@ -319,6 +322,7 @@ namespace ConceptMatrix.Views
                     ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[4].Value,
                     ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[1].Value, 0);
             }
+            e.Handled = true;
         }
 
         private void FacePaintButton_Click(object sender, RoutedEventArgs e)
@@ -340,6 +344,7 @@ namespace ConceptMatrix.Views
                 CheckIncluded.IsChecked = false;
                 CharaMakeFeatureSelector(((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[4].Value, ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[1].Value, 1);
             }
+            e.Handled = true;
         }
 
         private void FacialFeatureButton_Click(object sender, RoutedEventArgs e)
@@ -365,6 +370,7 @@ namespace ConceptMatrix.Views
                     ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[4].Value,
                     ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[1].Value);
             }
+            e.Handled = true;
         }
 
         private void CharacterFeature_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -373,6 +379,7 @@ namespace ConceptMatrix.Views
                 return;
             var Value = (FeatureSelect)CharacterFeature.SelectedItem;
             ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[6].WriteMemory((byte)Value.ID);
+            e.Handled = true;
         }
         private void FacePaintFeature_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -381,6 +388,7 @@ namespace ConceptMatrix.Views
             var Value = (FeatureSelect)FacePaintFeature.SelectedItem;
             if (CheckIncluded.IsChecked == true) Value.ID += 128;
             ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[24].WriteMemory((byte)Value.ID);
+            e.Handled = true;
         }
 
         private void FacialFeatureView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -559,6 +567,7 @@ namespace ConceptMatrix.Views
                     Convert.ToBoolean(((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[1].Value)), 192);
                 ColorBox.SelectedIndex = 1;
             }
+            e.Handled = true;
         }
 
         private void ColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -596,6 +605,7 @@ namespace ConceptMatrix.Views
                 }
                 isUserInteraction = false;
             }
+            e.Handled = true;
         }
 
         private void HighlightColorButton_Click(object sender, RoutedEventArgs e)
@@ -617,6 +627,7 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelector(ExdData._colorMap, 256, 192);
                 ColorBox.SelectedIndex = 2;
             }
+            e.Handled = true;
         }
 
         private void LeftEyeColorButton_Click(object sender, RoutedEventArgs e)
@@ -638,6 +649,7 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelector(ExdData._colorMap, 0, 192);
                 ColorBox.SelectedIndex = 5;
             }
+            e.Handled = true;
         }
 
         private void FacePaintColorButton_Click(object sender, RoutedEventArgs e)
@@ -659,6 +671,7 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelector(ExdData._colorMap, 512, 96);
                 ColorBox.SelectedIndex = 6;
             }
+            e.Handled = true;
         }
 
         private void RightEyeColorButton_Click(object sender, RoutedEventArgs e)
@@ -680,6 +693,7 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelector(ExdData._colorMap, 0, 192);
                 ColorBox.SelectedIndex = 4;
             }
+            e.Handled = true;
         }
 
         private void SkinColorButton_Click(object sender, RoutedEventArgs e)
@@ -705,6 +719,7 @@ namespace ConceptMatrix.Views
                     Convert.ToBoolean(((ByteArrayAddress)BaseModel.AddressList["ActorData"]).ArrayValue[1].Value)), 192);
                 ColorBox.SelectedIndex = 0;
             }
+            e.Handled = true;
         }
 
         private void LimbalEyeColor_Click(object sender, RoutedEventArgs e)
@@ -726,6 +741,7 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelector(ExdData._colorMap, 0, 192);
                 ColorBox.SelectedIndex = 7;
             }
+            e.Handled = true;
         }
 
         private void LipColorButton_Click(object sender, RoutedEventArgs e)
@@ -747,11 +763,13 @@ namespace ConceptMatrix.Views
                 CharaMakeColorSelectorLips(ExdData._colorMap, 512, 96);
                 ColorBox.SelectedIndex = 3;
             }
+            e.Handled = true;
         }
 
         private void ColorBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             isUserInteraction = true;
+            e.Handled = true;
         }
 
         private void colorListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -787,6 +805,7 @@ namespace ConceptMatrix.Views
                 default:
                     break;
             }
+            e.Handled = true;
         }
 #endregion
 
@@ -817,6 +836,7 @@ namespace ConceptMatrix.Views
                 NPCTab.IsSelected = true;
                 if (!UserDoneInteraction) ResidentSelector(ExdData.Residents.Values.Where(c => c.IsGoodNpc()).ToArray());
             }
+            e.Handled = true;
         }
 
         private void SearchNPCName_TextChanged(object sender, TextChangedEventArgs e)
@@ -903,6 +923,7 @@ namespace ConceptMatrix.Views
                     ((EquipmentArray)BaseModel.AddressList["LRing"]).WriteMemoryX(bytes);
                 }
             }
+            e.Handled = true;
         }
         #endregion
 
@@ -921,6 +942,7 @@ namespace ConceptMatrix.Views
                 ActorCustom.IsOpen = !ActorCustom.IsOpen;
                 ModelTab.IsSelected = true;
             }
+            e.Handled = true;
         }
 
         private void ModelCharaList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -932,6 +954,7 @@ namespace ConceptMatrix.Views
                 var Value = (ExdData.Monster)ModelCharaList.SelectedItem;
                 BaseModel.AddressList["ModelChara"].WriteMemory(Value.Index);
             }
+            e.Handled = true;
         }
 
         private void SearchModelName_TextChanged(object sender, TextChangedEventArgs e)
@@ -947,16 +970,19 @@ namespace ConceptMatrix.Views
                         Name = parse.Name.ToString()
                     });
                 }
+            e.Handled = true;
         }
 
         private void UnfreezeButton_Click(object sender, RoutedEventArgs e)
         {
             ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).UnfreezeArray();
+            e.Handled = true;
         }
 
         private void FreezeButton_Click(object sender, RoutedEventArgs e)
         {
             ((ByteArrayAddress)BaseModel.AddressList["ActorData"]).FreezeArray();
+            e.Handled = true;
         }
     }
 }

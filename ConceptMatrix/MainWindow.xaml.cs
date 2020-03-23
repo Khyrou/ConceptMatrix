@@ -604,6 +604,7 @@ namespace ConceptMatrix
         {
             // 当点击窗口空白处时，使所有TextBox失去焦点
             gridSplitter.Focus();
+            e.Handled = true;
         }
 
         private void MaterialWindow_Loaded(object sender, RoutedEventArgs e)
@@ -626,6 +627,7 @@ namespace ConceptMatrix
             };
 
             MenuModel.Instance.SwitchPage(MenuModel.MenuCategory.Data, null);
+            e.Handled = true;
 
         }
         public void InitializeModel()
