@@ -34,7 +34,7 @@ namespace ConceptMatrix.Models
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 		public bool EnabledEditing { get; set; }
-		private int animIndex;
+		private int animIndex { get; set; }
 		public int AnimIndex
 		{
 			get => animIndex;
@@ -49,14 +49,14 @@ namespace ConceptMatrix.Models
 			get => names;
 			set => names = value;
 		}
-		private int selectedIndex;
+		private int selectedIndex { get; set; }
 
 		public int SelectedIndex
 		{
 			get => selectedIndex;
 			set => selectedIndex = value;
 		}
-		public int OldIndex;
+		public int OldIndex { get; set; }
 		public bool InGpose = false;
 		public bool GposeChecked { get; set; }
 		// Target Mode
@@ -124,7 +124,7 @@ namespace ConceptMatrix.Models
 
 		public static int OldActorID = 0;
 
-		private ClassJob _SelectedClassJob;
+		private ClassJob _SelectedClassJob { get; set; }
 		public ClassJob SelectedClassJob
 		{
 			get => _SelectedClassJob;
