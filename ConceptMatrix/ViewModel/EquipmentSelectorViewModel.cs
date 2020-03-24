@@ -27,7 +27,7 @@ namespace ConceptMatrix.ViewModel
 
         public BaseModel Parent { get; private set; }
 
-        private ExdData.Item _SelectedEquipment;
+        private ExdData.Item _SelectedEquipment { get; set; }
 
         public ExdData.Item SelectedEquipment
         {
@@ -52,7 +52,7 @@ namespace ConceptMatrix.ViewModel
                             SelectedEquipment.ModelMain.Value2,
                             SelectedEquipment.ModelMain.Value3,
                             SelectedEquipment.IsDyeable,
-                            SelectedEquipment.ModelMain.Value4);
+                            Stain);
 
                 OnPropertyChanged("SelectedEquipment");
             }
@@ -78,8 +78,8 @@ namespace ConceptMatrix.ViewModel
                 MemoryEdit(value.ModelMain.Value1,
                             value.ModelMain.Value2,
                             value.ModelMain.Value3,
-                            value.IsDyeable,
-                            value.ModelMain.Value4);
+                            false,
+                            Stain);
                 OnPropertyChanged("SelectedEquipmentUser");
             }
         }
@@ -87,7 +87,10 @@ namespace ConceptMatrix.ViewModel
         public string SelectedText { get; set; }
         public bool SelectedValid { get; set; }
 
-        private ushort _Model, _Base, _Variant, _Stain;
+        private ushort _Model { get; set; }
+        private ushort _Base { get; set; }
+        private ushort _Variant { get; set; }
+        private ushort _Stain { get; set; }
 
         public ushort Model
         {
@@ -112,12 +115,12 @@ namespace ConceptMatrix.ViewModel
                 if (eq == null)
                 {
                     _Model = value;
-                    MemoryEdit(value, _Base, _Variant, true, Stain);
+                    MemoryEdit(value, _Base, _Variant, false, Stain);
                 }
                 if (eq != null)
                 {
                     _Model = value;
-                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, eq.IsDyeable, eq.ModelMain.Value4);
+                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, false, Stain);
                 }
             }
         }
@@ -145,12 +148,12 @@ namespace ConceptMatrix.ViewModel
                 if (eq == null)
                 {
                     _Base = value;
-                    MemoryEdit(_Model, value, _Variant, true, Stain);
+                    MemoryEdit(_Model, value, _Variant, false, Stain);
                 }
                 if (eq != null)
                 {
                     _Base = value;
-                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, eq.IsDyeable, eq.ModelMain.Value4);
+                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, false, Stain);
                 }
             }
         }
@@ -177,12 +180,12 @@ namespace ConceptMatrix.ViewModel
                 if (eq == null) 
                 {
                     _Variant = value;
-                    MemoryEdit(_Model, _Base, value, true, Stain);
+                    MemoryEdit(_Model, _Base, value, false, Stain);
                 }
                 if (eq != null)
                 {
                     _Variant = value;
-                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, eq.IsDyeable, eq.ModelMain.Value4);
+                    MemoryEdit(eq.ModelMain.Value1, eq.ModelMain.Value2, eq.ModelMain.Value3, false, Stain);
                 }
             }
         }
@@ -202,7 +205,7 @@ namespace ConceptMatrix.ViewModel
                 MemoryEdit(_Model, _Base, _Variant, true, value);
             }
         }
-        private bool _Freeze;
+        private bool _Freeze { get; set; }
         public bool Freeze
         {
             get 
@@ -326,13 +329,13 @@ namespace ConceptMatrix.ViewModel
             OnPropertyChanged(nameof(UserStain));
         }
 
-        public void MemoryEdit(ushort m, ushort b, ushort v, bool stain, ushort s)
+        public void MemoryEdit(ushort m, ushort b, ushort v, bool EditedFromStain, ushort s)
         {
             Application.Current.Dispatcher.Invoke(() => //Use Dispather to Update UI Immediately  
             {
-                if (EquipmentPage.Page.KeepDye.IsChecked == true) s = UserStain;
+                if (EquipmentPage.Page.KeepDye.IsChecked == true&& !EditedFromStain) s = UserStain;
             });
-            ushort[] ints = new ushort[] { m, b, v, s };
+            ushort[] ints = new ushort[] { m, b, v, s };    
             bool equal = ints.SequenceEqual(oldvalue);
             if (equal) return;
             oldvalue = ints;
@@ -351,8 +354,8 @@ namespace ConceptMatrix.ViewModel
                             eq.ModelSub.Value2,
                             eq.ModelSub.Value3,
                             eq.IsDyeable,
-                            eq.ModelSub.Value4);
-                        ints = new ushort[] { eq.ModelSub.Value1, eq.ModelSub.Value2, eq.ModelSub.Value3, eq.ModelSub.Value4 };
+                            s);
+                        ints = new ushort[] { eq.ModelSub.Value1, eq.ModelSub.Value2, eq.ModelSub.Value3, s };
                         bytes = ints.SelectMany(BitConverter.GetBytes).ToArray();
                         BaseModel.AddressList["Offhand"].WriteMemory(bytes);
                     }
