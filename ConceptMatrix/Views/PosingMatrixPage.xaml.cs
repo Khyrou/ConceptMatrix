@@ -486,17 +486,15 @@ namespace ConceptMatrix.Views
             MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton1.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
             MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton2.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
             MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton3.Adressed, 0x90, 0x90, 0x90, 0x90);
-            MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton4.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
-            MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton6.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
             MainWindow.GameProcess.WriteBytes(BaseModel.Physics1.Adressed, 0x90, 0x90, 0x90, 0x90);
             MainWindow.GameProcess.WriteBytes(BaseModel.Physics2.Adressed, 0x90, 0x90, 0x90);
-            MainWindow.GameProcess.WriteBytes(BaseModel.Physics3.Adressed, 0x90, 0x90, 0x90, 0x90);
         }
 
         private void EditModeButton_Unchecked(object sender, RoutedEventArgs e)
         {
             PhysicsButton.IsChecked = false;
             WeaponPoSToggle.IsChecked = false;
+            ScaleEdit.IsChecked = false;
             ScaleToggle.IsChecked = false;
             HelmToggle.IsChecked = false;
             PoseMatrixViewModel.PoseVM.ReadTetriaryFromRunTime = false;
@@ -512,11 +510,162 @@ namespace ConceptMatrix.Views
             MainWindow.GameProcess.WriteBytes(BaseModel.Physics3.Adressed, 0x0F, 0x29, 0x40, 0x20);
         }
 
+        private void ScaleEdit_Checked(object sender, RoutedEventArgs e)
+        {
+            if (EditModeButton.IsChecked == true)
+            {
+                ScaleToggle.IsEnabled = true;
+                PhysicsButton.IsChecked = false;
+                PhysicsButton.IsEnabled = false;
+                MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton4.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
+                MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton6.Adressed, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90);
+                MainWindow.GameProcess.WriteBytes(BaseModel.Physics3.Adressed, 0x90, 0x90, 0x90, 0x90);
+            }
+        }
+
+        private void ScaleEdit_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (EditModeButton.IsChecked == true)
+            {
+                PhysicsButton.IsEnabled = true;
+                ScaleToggle.IsEnabled = false;
+                MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton4.Adressed, 0x41, 0x0F, 0x29, 0x44, 0x12, 0x20);
+                MainWindow.GameProcess.WriteBytes(BaseModel.Skeleton6.Adressed, 0x43, 0x0F, 0x29, 0x44, 0x18, 0x20);
+                MainWindow.GameProcess.WriteBytes(BaseModel.Physics3.Adressed, 0x0F, 0x29, 0x40, 0x20);
+                UncheckAll();
+                if (ScaleToggle.IsChecked == true)
+                {
+                    #region Enable Controls
+                    Waist.IsEnabled = true;
+                    SpineA.IsEnabled = true;
+                    LegLeft.IsEnabled = true;
+                    LegRight.IsEnabled = true;
+                    HolsterLeft.IsEnabled = true;
+                    HolsterRight.IsEnabled = true;
+                    SheatheLeft.IsEnabled = true;
+                    SheatheRight.IsEnabled = true;
+                    SpineB.IsEnabled = true;
+                    ClothBackALeft.IsEnabled = true;
+                    ClothBackARight.IsEnabled = true;
+                    ClothFrontALeft.IsEnabled = true;
+                    ClothFrontARight.IsEnabled = true;
+                    ClothSideALeft.IsEnabled = true;
+                    ClothSideARight.IsEnabled = true;
+                    KneeLeft.IsEnabled = true;
+                    KneeRight.IsEnabled = true;
+                    BreastLeft.IsEnabled = true;
+                    BreastRight.IsEnabled = true;
+                    SpineC.IsEnabled = true;
+                    ClothBackBLeft.IsEnabled = true;
+                    ClothBackBRight.IsEnabled = true;
+                    ClothFrontBLeft.IsEnabled = true;
+                    ClothFrontBRight.IsEnabled = true;
+                    ClothSideBLeft.IsEnabled = true;
+                    ClothSideBRight.IsEnabled = true;
+                    CalfLeft.IsEnabled = true;
+                    CalfRight.IsEnabled = true;
+                    ScabbardLeft.IsEnabled = true;
+                    ScabbardRight.IsEnabled = true;
+                    Neck.IsEnabled = true;
+                    ClavicleLeft.IsEnabled = true;
+                    ClavicleRight.IsEnabled = true;
+                    ClothBackCLeft.IsEnabled = true;
+                    ClothBackCRight.IsEnabled = true;
+                    ClothFrontCLeft.IsEnabled = true;
+                    ClothFrontCRight.IsEnabled = true;
+                    ClothSideCLeft.IsEnabled = true;
+                    ClothSideCRight.IsEnabled = true;
+                    PoleynLeft.IsEnabled = true;
+                    PoleynRight.IsEnabled = true;
+                    FootLeft.IsEnabled = true;
+                    FootRight.IsEnabled = true;
+                    Head.IsEnabled = true;
+                    ArmLeft.IsEnabled = true;
+                    ArmRight.IsEnabled = true;
+                    PauldronLeft.IsEnabled = true;
+                    PauldronRight.IsEnabled = true;
+                    Unknown00.IsEnabled = true;
+                    ToesLeft.IsEnabled = true;
+                    ToesRight.IsEnabled = true;
+                    HairA.IsEnabled = true;
+                    HairFrontLeft.IsEnabled = true;
+                    HairFrontRight.IsEnabled = true;
+                    EarLeft.IsEnabled = true;
+                    EarRight.IsEnabled = true;
+                    ForearmLeft.IsEnabled = true;
+                    ForearmRight.IsEnabled = true;
+                    ShoulderLeft.IsEnabled = true;
+                    ShoulderRight.IsEnabled = true;
+                    HairB.IsEnabled = true;
+                    HandLeft.IsEnabled = true;
+                    HandRight.IsEnabled = true;
+                    ShieldLeft.IsEnabled = true;
+                    ShieldRight.IsEnabled = true;
+                    EarringALeft.IsEnabled = true;
+                    EarringARight.IsEnabled = true;
+                    ElbowLeft.IsEnabled = true;
+                    ElbowRight.IsEnabled = true;
+                    CouterLeft.IsEnabled = true;
+                    CouterRight.IsEnabled = true;
+                    WristLeft.IsEnabled = true;
+                    WristRight.IsEnabled = true;
+                    IndexALeft.IsEnabled = true;
+                    IndexARight.IsEnabled = true;
+                    PinkyALeft.IsEnabled = true;
+                    PinkyARight.IsEnabled = true;
+                    RingALeft.IsEnabled = true;
+                    RingARight.IsEnabled = true;
+                    MiddleALeft.IsEnabled = true;
+                    MiddleARight.IsEnabled = true;
+                    ThumbALeft.IsEnabled = true;
+                    ThumbARight.IsEnabled = true;
+                    WeaponLeft.IsEnabled = true;
+                    WeaponRight.IsEnabled = true;
+                    EarringBLeft.IsEnabled = true;
+                    EarringBRight.IsEnabled = true;
+                    IndexBLeft.IsEnabled = true;
+                    IndexBRight.IsEnabled = true;
+                    PinkyBLeft.IsEnabled = true;
+                    PinkyBRight.IsEnabled = true;
+                    RingBLeft.IsEnabled = true;
+                    RingBRight.IsEnabled = true;
+                    MiddleBLeft.IsEnabled = true;
+                    MiddleBRight.IsEnabled = true;
+                    ThumbBLeft.IsEnabled = true;
+                    ThumbBRight.IsEnabled = true;
+
+                    Jaw.IsEnabled = true;
+                    EyelidLowerLeft.IsEnabled = true;
+                    EyelidLowerRight.IsEnabled = true;
+                    EyeLeft.IsEnabled = true;
+                    EyeRight.IsEnabled = true;
+                    Nose.IsEnabled = true;
+                    CheekLeft.IsEnabled = true;
+                    CheekRight.IsEnabled = true;
+                    LipsLeft.IsEnabled = true;
+                    LipsRight.IsEnabled = true;
+                    EyebrowLeft.IsEnabled = true;
+                    EyebrowRight.IsEnabled = true;
+                    Bridge.IsEnabled = true;
+                    BrowLeft.IsEnabled = true;
+                    BrowRight.IsEnabled = true;
+                    LipUpperA.IsEnabled = true;
+                    EyelidUpperLeft.IsEnabled = true;
+                    EyelidUpperRight.IsEnabled = true;
+                    LipLowerA.IsEnabled = true;
+                    LipUpperB.IsEnabled = true;
+                    LipLowerB.IsEnabled = true;
+
+                    EnableTertiary();
+                    #endregion
+                    ScaleToggle.IsChecked = false;
+                }
+            }
+        }
         private void PhysicsButton_Checked(object sender, RoutedEventArgs e)
         {
             MainWindow.GameProcess.WriteBytes(BaseModel.Physics1.Adressed, 0x0F, 0x29, 0x48, 0x10);
             MainWindow.GameProcess.WriteBytes(BaseModel.Physics2.Adressed, 0x0F, 0x29, 0x00);
-            MainWindow.GameProcess.WriteBytes(BaseModel.Physics3.Adressed, 0x0F, 0x29, 0x40, 0x20);
         }
 
         private void PhysicsButton_Unchecked(object sender, RoutedEventArgs e)
@@ -2649,9 +2798,10 @@ namespace ConceptMatrix.Views
         {
             #region Enable Controls
             PhysicsButton.IsEnabled = true;
+            ScaleEdit.IsEnabled = true;
             HelmToggle.IsEnabled = true;
             WeaponPoSToggle.IsEnabled = true;
-            ScaleToggle.IsEnabled = true;
+     //       ScaleToggle.IsEnabled = true;
             // TertiaryButton.IsEnabled = true;
             //Root.IsEnabled = true;
             //Abdomen.IsEnabled = true;
@@ -2841,7 +2991,7 @@ namespace ConceptMatrix.Views
             WeaponPoSToggle.IsEnabled = false;
             PhysicsButton.IsEnabled = false;
             ScaleToggle.IsEnabled = false;
-
+            ScaleEdit.IsEnabled = false;
             // TertiaryButton.IsEnabled = false;
             Root.IsEnabled = false;
             Abdomen.IsEnabled = false;
@@ -9966,6 +10116,7 @@ namespace ConceptMatrix.Views
                 EnableAll();
 
                 #region Disable Controls
+                PhysicsButton.IsEnabled = false;
                 Root.IsEnabled = false;
                 Abdomen.IsEnabled = false;
                 Throw.IsEnabled = false;
