@@ -441,8 +441,6 @@ namespace ConceptMatrix.Backend
 
 		public PointerType PointerType { get; set; }
 
-		public bool IsEditing { get; set; }
-
 		public byte[] _Value { get; set; }
 
 		public byte[] OldValue { get; set; }
@@ -512,10 +510,12 @@ namespace ConceptMatrix.Backend
 				return;
 			}
 			//Have to figure out a better way so we don't read individual indexes in memory.
+			ulong x = 0;
 			foreach (var IndexAddress in ArrayValue)
 			{
 				if(IndexAddress.Freeze) IndexAddress.WriteMemory(IndexAddress.Value);
 				else IndexAddress.Value = MainWindow.GameProcess.ReadByte(BaseModel.GetPointerType(PointerType) + Address + IndexAddress.index);
+				Value[x++] = IndexAddress.Value;
 			}
 		}
         #endregion
